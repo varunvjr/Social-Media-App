@@ -3,15 +3,21 @@ import dotenv from "dotenv";
 import cors from "cors";
 import bodyParser from 'body-parser';
 import {errorHandler} from "./controller/error.js"
-dotenv.config();
+import authRoutes from "./routes/auth.js"
+import connectDB from "./config/db.js";
 const app=express();
+dotenv.config();
+connectDB();
+app.use(bodyParser.json());
+
 const PORT=process.env.PORT;
 app.use(cors());
+app.use("/api/auth",authRoutes);
 
 app.get("/",(req,res)=>{
     res.send("Social App Server")
 })
-app.use(bodyParser.json());
+
 app.use((req,res,next)=>{
     let err=new Error("Not found");
     err.status=404;
