@@ -1,5 +1,6 @@
 import User from "../models/user.js"
-import {generateToken} from "../utils/generateToken.js"
+import jwt from "jsonwebtoken";
+
 export const signin=async()=>{
 
 }
@@ -12,7 +13,9 @@ export const signup=async(req,res,next)=>{
             id,
             username,
             profileImage,
-            token:generateToken(id)
+            token:jwt.sign({id},process.env.SECRET_KEY,{
+                expiresIn:'2d'
+            })
         })
     }catch(err){
         if(err.code===11000){
