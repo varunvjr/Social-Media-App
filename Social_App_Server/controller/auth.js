@@ -7,7 +7,6 @@ export const signin=async(req,res,next)=>{
         console.log("User",user);
     if(user){
         const {id,email,username,profileImage}=user;
-        console.log("Password",req.body.password);
         const isMatch=await user.comparePassword(req.body.password);
         if(isMatch){
             res.status(200).json({

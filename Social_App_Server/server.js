@@ -4,6 +4,7 @@ import cors from "cors";
 import bodyParser from 'body-parser';
 import {errorHandler} from "./controller/error.js"
 import authRoutes from "./routes/auth.js"
+import messageRoutes from "./routes/message.js";
 import connectDB from "./config/db.js";
 const app=express();
 dotenv.config();
@@ -13,7 +14,7 @@ app.use(bodyParser.json());
 const PORT=process.env.PORT;
 app.use(cors());
 app.use("/api/auth",authRoutes);
-
+app.use("/api/users/:id/messages",messageRoutes);
 app.get("/",(req,res)=>{
     res.send("Social App Server")
 })
