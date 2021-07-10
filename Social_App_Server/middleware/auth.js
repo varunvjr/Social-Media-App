@@ -6,7 +6,7 @@ export const isLoggedIn=async(req,res,next)=>{
     try{
         const token=req.headers.authorization.split(" ")[1];
         const decode=await jwt.verify(token,process.env.SECRET_KEY);
-            if(decode.id===req.params.id){
+            if(decode){
                 return next(); 
             }
             else{
@@ -28,12 +28,19 @@ export const isLoggedIn=async(req,res,next)=>{
 
 //- Ensure the correct user// Authorization
 
-export const correctUser=(req,res,next)=>{
+export const correctUser=async(req,res,next)=>{
     try{
         const token=req.headers.authorization.split(" ")[1];
-        jwt.verify(token,process.env.SECRET_KEY,function(err,decoded){
-
-        })
+        const decode=await jwt.verify(token,process.env.SECRET_KEY);
+        if(decode.id===req.params.id){
+            return next(); 
+        }
+        else{
+            return next({
+                status:401,
+                message:"Unauthorized User"
+            }) 
+        }
     }catch(err){
         return next({
             status:404,
