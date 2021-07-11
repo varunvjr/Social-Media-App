@@ -20,3 +20,40 @@ export const createMessage=async(req,res,next)=>{
         return next(err);
     }
 }
+
+export const getMessage=async(req,res,next)=>{
+    try{   
+        const message=await Message.findById(req.params.messageId);
+        if(message){
+            const foundMessage=await Message.findById(req.params.messageId).populate("user",{
+                username:true,
+                profileImage:true
+            })
+            res.status(200).json(foundMessage);
+        }else{
+            return next({
+                status:404,
+                message:"Message not found"
+            })
+        }
+    }catch(err){
+        return next(err);
+    }
+}
+
+export const deleteMessage=async(req,res,next)=>{
+    try{
+        const foundMessage=await Message.findById(req.params.messageId);
+        const userId=await foundMessage.user;
+        if(userId==req.params.id){
+            await foundMessage.remove();
+            res.status(200).json(foundMessage);
+        }else{
+            return next({
+                message:"Unauthorized user"
+            })
+        }
+    }catch(err){
+        return next(err);
+    }
+}
