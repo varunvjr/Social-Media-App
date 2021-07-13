@@ -1,4 +1,4 @@
-import {SET_CURRENT_USER,USER_LOGIN_FAIL,USER_LOGIN_REQUEST} from "../constants/userConstants";
+import {SET_CURRENT_USER,USER_LOGIN_FAIL,USER_LOGIN_REQUEST,USER_LOGOUT} from "../constants/userConstants";
 
 
 export const userLoginReducer=(state={isAuthenticated:false,user:{}},action)=>{
@@ -18,6 +18,12 @@ export const userLoginReducer=(state={isAuthenticated:false,user:{}},action)=>{
                 loading:false,
                 error:action.payload
             }
+        case USER_LOGOUT:
+            return{
+                user:{},
+                isAuthenticated:false
+            }
+        
         default:return state
     }
 

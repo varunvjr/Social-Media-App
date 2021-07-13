@@ -3,9 +3,11 @@ import {useDispatch,useSelector} from "react-redux";
 import {login} from "../store/actions/userAction";
 import {useHistory} from 'react-router-dom'
 import Loader from './Loader';
+import Message from './Message';
 const AuthForm = (props) => {
+    const {heading,buttonText}=props;
     const userLogin=useSelector(state=>state.userLogin);
-    const {loading,isAuthenticated}=userLogin;
+    const {loading,isAuthenticated,error}=userLogin;
     const history=useHistory();
     const dispatch=useDispatch();
     const [email,setEmail]=useState("");
@@ -20,13 +22,15 @@ const AuthForm = (props) => {
         if(isAuthenticated){
             history.push("/dashboard");
         }
-
     },[isAuthenticated,history])
-    const {heading,buttonText}=props;
+
     return (
         <div>
             {loading&&(
                 <Loader/>
+            )}
+            {error&&(
+                <Message variant='danger'>{error}</Message>
             )}
             <div className="row justify-content-md-center text-center">
                 <div className="col-md-6">
