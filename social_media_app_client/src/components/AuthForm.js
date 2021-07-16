@@ -5,7 +5,9 @@ import {useHistory} from 'react-router-dom'
 import Loader from './Loader';
 import Message from './Message';
 const AuthForm = (props) => {
+    console.log("Location",window.location.href);
     const {heading,buttonText}=props;
+   
     const userLogin=useSelector(state=>state.userLogin);
     const {loading,isAuthenticated,error}=userLogin;
     const history=useHistory();

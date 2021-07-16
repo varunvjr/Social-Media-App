@@ -1,11 +1,12 @@
 import {combineReducers,createStore,applyMiddleware} from 'redux';
 import {errorMessageReducer} from "./store/reducers/errorReducer";
-import {userLoginReducer} from "./store/reducers/userReducer"
+import {userLoginReducer,userRegisterReducer} from "./store/reducers/userReducer"
 import {composeWithDevTools} from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 
 const reducer=combineReducers({
     userLogin:userLoginReducer,
+    userRegister:userRegisterReducer,
     error:errorMessageReducer
 })
 
