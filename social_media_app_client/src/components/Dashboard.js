@@ -1,7 +1,7 @@
  import React,{useEffect} from 'react'
-import {useDispatch,useSelector} from 'react-redux'
-import {logout} from "../store/actions/userAction"
+import {useSelector} from 'react-redux'
 import {useHistory} from "react-router-dom"
+import Navbar from '../containers/Navbar'
 const Dashboard = () => {
     const history=useHistory();
     const userLogin=useSelector(state=>state.userLogin);
@@ -11,14 +11,11 @@ const Dashboard = () => {
             history.push("/");
         }
     },[history,isAuthenticated])
-    const dispatch=useDispatch();
-    const signoff=()=>{
-        dispatch(logout);
-    }
+  
     return (
         <div>
-            Dashboard
-        <button className="btn btn-primary" onClick={signoff}>Logout</button>
+        <Navbar/>
+            You Made it!!!
         </div>
     )
 }

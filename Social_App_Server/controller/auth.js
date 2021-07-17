@@ -26,7 +26,7 @@ export const signin=async(req,res,next)=>{
         }
     }else{
         return next({
-            status:404,
+            status:405,
             message:"User not found"
         })
     }

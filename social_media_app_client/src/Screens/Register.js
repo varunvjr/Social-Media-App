@@ -7,7 +7,9 @@ import Message from '../components/Message';
 
 const Register = () => {
     const userLogin=useSelector(state=>state.userLogin);
-    const {loading,error,isAuthenticated}=userLogin;
+    const {loading,isAuthenticated}=userLogin;
+    const userRegister=useSelector(state=>state.userRegister);
+    const {error}=userRegister;
     const history=useHistory();
     const dispatch=useDispatch();
     const [email,setEmail]=useState("");

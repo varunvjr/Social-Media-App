@@ -18,9 +18,10 @@ export const login=(email,password)=>async(dispatch)=>{
        })
        localStorage.setItem("userInfo",JSON.stringify(data))
     }catch(error){
+        console.log("Error",error.response.data.error.message);
         dispatch({
             type:USER_LOGIN_FAIL,
-            payload:error.response&&error.response.data.message?error.response.data.message:error.message
+            payload:error.response&&error.response.data.error.message?error.response.data.error.message:error.message
         })
     }
 }
@@ -43,7 +44,7 @@ export const register=(username,email,password,profileImage)=>async(dispatch)=>{
     }catch(error){
         dispatch({
             type:USER_REGISTER_FAIL,
-            payload:error.response&&error.response.data.message?error.response.data.message:error.message
+            payload:error.response&&error.response.data.error.message?error.response.data.error.message:error.message
         })
     }
 }

@@ -57,3 +57,18 @@ export const deleteMessage=async(req,res,next)=>{
         return next(err);
     }
 }
+export const getAllMessages=async(req,res,next)=>{
+    try{
+        const allMessages=await Message.find().populate('user',{username:true,profileImage:true}); 
+        if(allMessages){
+            res.status(200).json(allMessages);
+        }else{
+            res.status(500).json({
+                message:"Messages not found"
+            })
+        }
+      
+    }catch(err){
+        return next(err);
+    }
+}
