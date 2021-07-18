@@ -5,6 +5,7 @@ import Navbar from '../containers/Navbar'
 import {allMessages} from "../store/actions/messageAction"
 import Loader from './Loader';
 import Message from './Message';
+import UserAside from './UserAside'
 import MessageItem from './MessageItem'
 const Dashboard = () => {
     const dispatch=useDispatch();
@@ -23,14 +24,19 @@ const Dashboard = () => {
     },[history,isAuthenticated,dispatch,user])
   
     return (
-        <div>
+        <>
         <Navbar/>
+        <div className="row">
+        <UserAside
+         profileImage={user.profileImage}
+         username={user.username}
+
+        />
         {loading&&<Loader/>}
         {error&&<Message variant='danger'>{error}</Message>}
-        <div style={{ display: 'flex',
-        alignItems: 'center',
-        padding:"50px",
-        justifyContent: 'center'}}>
+        <div className="row col-sm-8">
+        <div className="offset-1 col-sm-10">
+        <ul className="list-group" id="messages">
         {success&&messages.map(msg=>(
             <MessageItem
             key={msg._id}
@@ -40,9 +46,15 @@ const Dashboard = () => {
             profileImage={msg.user.profileImage}
             />
         ))}
+        </ul>
+
+        
+        </div>
+        
         </div>
             
         </div>
+        </>
     )
 }
 

@@ -3,9 +3,16 @@ import Moment from 'react-moment';
 import {Link} from 'react-router-dom';
 import DefaultProfileImage from "../images/default-profile-image.jpg"
 const MessageItem = ({date,text,profileImage,username}) => {
+    console.log("ProfileImage",profileImage);
+    let pimage=DefaultProfileImage;
+    if(profileImage){
+        pimage=profileImage.length>0?profileImage:DefaultProfileImage;
+    }
     return (
-        <div style={{padding:"30px"}}>
-            <img src={DefaultProfileImage} alt={username} height="100" width="100" className="timeline-image"/>
+        <div>
+        <li className="list-group-item">
+            <img src={pimage} alt={username} height="100" width="100" className="timeline-image"/>
+            
             <div className="message-area">
                 <Link to="/">@{username} &nbsp;</Link>
                 <br/>
@@ -13,7 +20,10 @@ const MessageItem = ({date,text,profileImage,username}) => {
                     <Moment className="text-muted" format="Do MMM YYYY">{date}</Moment>
                 </span>
                 <p>{text}</p>
+                <a href="#/" className="btn btn-danger">Delete</a>
+            
             </div>
+        </li>
         </div>
     )
 }
