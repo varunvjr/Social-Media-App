@@ -2,19 +2,19 @@ import React from 'react'
 import {useSelector,useDispatch} from 'react-redux'
 import {Link} from 'react-router-dom'
 import Logo from "../images/warbler-logo.png"
+import {useHistory} from 'react-router-dom'
 import { logout } from '../store/actions/userAction'
 
 const Navbar = () => {
+    const history=useHistory();
      const dispatch = useDispatch();
     const userLogin=useSelector(state=>state.userLogin);
-    const {isAuthenticated,user}=userLogin;
-    const {token}=user;
-    console.log("Token",token);
+    const {isAuthenticated}=userLogin;
     const signoff=()=>{
         dispatch(logout)
     }
     const newMessage=()=>{
-        console.log("New Message")
+        history.push("/addMessage");
     }
     return (
     

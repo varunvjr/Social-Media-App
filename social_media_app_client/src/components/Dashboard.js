@@ -14,7 +14,6 @@ const Dashboard = () => {
     const {loading,error,success,messages}=getAllMessages;
     const userLogin=useSelector(state=>state.userLogin);
     const {isAuthenticated,user}=userLogin; 
-
     useEffect(()=>{
         if(!isAuthenticated){
             history.push("/");
@@ -40,10 +39,12 @@ const Dashboard = () => {
         {success&&messages.map(msg=>(
             <MessageItem
             key={msg._id}
+            msgId={msg._id}
             date={msg.createdAt}
             text={msg.text}
             username={msg.user.username}
             profileImage={msg.user.profileImage}
+            userId={msg.user._id}
             />
         ))}
         </ul>
